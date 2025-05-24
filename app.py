@@ -18,7 +18,14 @@ st.set_page_config(
 
 # Initialisation du gestionnaire de données
 if 'data_manager' not in st.session_state:
-    st.session_state.data_manager = DataManager()
+    try:
+        from utils.database_manager import DatabaseManager
+        st.session_state.data_manager = DatabaseManager()
+    except Exception as e:
+        st.error(f"❌ Erreur de connexion à la base de données: {str(e)}")
+        # Fallback vers l'ancien système si la DB n'est pas disponible
+        from utils.data_manager import DataManager
+        st.session_state.data_manager = DataManager()
 
 data_manager = st.session_state.data_manager
 
@@ -38,6 +45,21 @@ st.markdown("---")
 # Sidebar pour navigation
 st.sidebar.title("📊 Navigation")
 st.sidebar.markdown("Utilisez les pages ci-dessous pour naviguer dans l'application")
+
+# Indicateur de statut de la base de données
+st.sidebar.markdown("---")
+st.sidebar.subheader("🗄️ Base de Données")
+try:
+    if hasattr(data_manager, 'get_database_stats'):
+        db_stats = data_manager.get_database_stats()
+        st.sidebar.success("✅ PostgreSQL connecté")
+        st.sidebar.caption(f"Transactions: {db_stats.get('transactions_count', 0)}")
+        st.sidebar.caption(f"Employés: {db_stats.get('active_employees_count', 0)}")
+        st.sidebar.caption(f"Actionnaires: {db_stats.get('active_shareholders_count', 0)}")
+    else:
+        st.sidebar.warning("⚠️ Mode fichiers CSV")
+except Exception:
+    st.sidebar.error("❌ Erreur de connexion")
 
 # Tableau de bord principal
 st.header("📈 Tableau de Bord")
