@@ -112,15 +112,10 @@ with st.sidebar:
         st.session_state.user_role = None
         st.rerun()
 
-# Initialisation du gestionnaire de données
+# Initialisation du gestionnaire de données (version déployable)
 if 'data_manager' not in st.session_state:
-    try:
-        from utils.database_manager import DatabaseManager
-        st.session_state.data_manager = DatabaseManager()
-    except Exception as e:
-        st.error(f"❌ Erreur de connexion à la base de données: {str(e)}")
-        from utils.data_manager import DataManager
-        st.session_state.data_manager = DataManager()
+    from utils.data_manager import DataManager
+    st.session_state.data_manager = DataManager()
 
 data_manager = st.session_state.data_manager
 
@@ -142,20 +137,20 @@ st.markdown("---")
 st.sidebar.title("📊 Navigation")
 st.sidebar.markdown("Utilisez les pages ci-dessous pour naviguer dans l'application")
 
-# Indicateur de statut de la base de données
+# Indicateur de statut des données
 st.sidebar.markdown("---")
-st.sidebar.subheader("🗄️ Base de Données")
+st.sidebar.subheader("💾 Données")
 try:
-    if hasattr(data_manager, 'get_database_stats'):
-        db_stats = data_manager.get_database_stats()
-        st.sidebar.success("✅ PostgreSQL connecté")
-        st.sidebar.caption(f"Transactions: {db_stats.get('transactions_count', 0)}")
-        st.sidebar.caption(f"Employés: {db_stats.get('active_employees_count', 0)}")
-        st.sidebar.caption(f"Actionnaires: {db_stats.get('active_shareholders_count', 0)}")
-    else:
-        st.sidebar.warning("⚠️ Mode fichiers CSV")
+    transactions_df = data_manager.load_transactions()
+    employees_df = data_manager.load_employees()
+    shareholders_df = data_manager.load_shareholders()
+    
+    st.sidebar.success("✅ Données locales")
+    st.sidebar.caption(f"Transactions: {len(transactions_df)}")
+    st.sidebar.caption(f"Employés: {len(employees_df[employees_df['actif'] == True]) if not employees_df.empty else 0}")
+    st.sidebar.caption(f"Actionnaires: {len(shareholders_df[shareholders_df['actif'] == True]) if not shareholders_df.empty else 0}")
 except Exception:
-    st.sidebar.error("❌ Erreur de connexion")
+    st.sidebar.error("❌ Erreur de chargement")
 
 # Tableau de bord principal
 st.header("📈 Tableau de Bord")
