@@ -37,12 +37,12 @@ with tab1:
         with st.form("nouvel_actionnaire"):
             prenom = st.text_input("Prénom", placeholder="Marie")
             nom = st.text_input("Nom", placeholder="Dubois")
-            pourcentage = st.number_input(
-                "Pourcentage d'actions (%)",
-                min_value=0.01,
-                max_value=100.0,
-                step=0.01,
-                format="%.2f"
+            parts_sociales = st.number_input(
+                "Nombre de parts sociales (sur 100 total)",
+                min_value=1,
+                max_value=100,
+                step=1,
+                help="Chaque part représente 1% du capital de 150 000 $"
             )
             email = st.text_input("Email (optionnel)", placeholder="marie.dubois@email.com")
             telephone = st.text_input("Téléphone (optionnel)", placeholder="+33 1 23 45 67 89")

@@ -29,6 +29,7 @@ class Shareholder:
             'id': self.id,
             'nom': self.nom,
             'prenom': self.prenom,
+            'parts_sociales': self.parts_sociales,
             'pourcentage_actions': self.pourcentage_actions,
             'email': self.email or '',
             'telephone': self.telephone or '',
@@ -38,11 +39,20 @@ class Shareholder:
     @classmethod
     def from_dict(cls, data: dict) -> 'Shareholder':
         """Crée un actionnaire à partir d'un dictionnaire"""
+        # Gestion de la rétrocompatibilité
+        if 'parts_sociales' in data:
+            parts_sociales = int(data['parts_sociales'])
+        elif 'pourcentage_actions' in data:
+            # Conversion depuis l'ancien format pourcentage vers parts sociales
+            parts_sociales = int(data['pourcentage_actions'])
+        else:
+            parts_sociales = 1
+            
         return cls(
             id=data['id'],
             nom=data['nom'],
             prenom=data['prenom'],
-            pourcentage_actions=float(data['pourcentage_actions']),
+            parts_sociales=parts_sociales,
             email=data.get('email', None) if data.get('email') else None,
             telephone=data.get('telephone', None) if data.get('telephone') else None,
             actif=bool(data.get('actif', True))
@@ -56,7 +66,7 @@ class Shareholder:
         """Valide les données de l'actionnaire"""
         if not self.id or not self.nom or not self.prenom:
             return False
-        if self.pourcentage_actions <= 0 or self.pourcentage_actions > 100:
+        if self.parts_sociales <= 0 or self.parts_sociales > 100:
             return False
         return True
     

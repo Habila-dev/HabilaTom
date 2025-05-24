@@ -38,7 +38,7 @@ class DataManager:
         
         # Actionnaires
         if not os.path.exists(self.shareholders_file):
-            df = pd.DataFrame(columns=['id', 'nom', 'prenom', 'pourcentage_actions', 'email', 'telephone', 'actif'])
+            df = pd.DataFrame(columns=['id', 'nom', 'prenom', 'parts_sociales', 'pourcentage_actions', 'email', 'telephone', 'actif'])
             df.to_csv(self.shareholders_file, index=False)
     
     # Gestion des transactions
@@ -137,7 +137,7 @@ class DataManager:
         try:
             return pd.read_csv(self.shareholders_file)
         except Exception:
-            return pd.DataFrame(columns=['id', 'nom', 'prenom', 'pourcentage_actions', 'email', 'telephone', 'actif'])
+            return pd.DataFrame(columns=['id', 'nom', 'prenom', 'parts_sociales', 'pourcentage_actions', 'email', 'telephone', 'actif'])
     
     def save_shareholder(self, shareholder: Shareholder) -> bool:
         """Sauvegarde un nouveau actionnaire"""

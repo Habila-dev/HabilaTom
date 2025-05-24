@@ -43,7 +43,7 @@ with tab1:
             )
             
             montant = st.number_input(
-                "Montant (€)",
+                "Montant ($)",
                 min_value=0.01,
                 step=0.01,
                 format="%.2f"
@@ -82,7 +82,7 @@ with tab1:
                     )
                     
                     if data_manager.save_transaction(transaction):
-                        st.success(f"✅ Transaction de {montant:.2f}€ enregistrée avec succès!")
+                        st.success(f"✅ Transaction de ${montant:.2f} enregistrée avec succès!")
                         st.rerun()
                     else:
                         st.error("❌ Erreur lors de l'enregistrement de la transaction.")
@@ -162,17 +162,17 @@ with tab2:
             
             col1, col2, col3 = st.columns(3)
             with col1:
-                st.metric("Total Entrées", f"{total_entrees:,.2f} €")
+                st.metric("Total Entrées", f"${total_entrees:,.2f}")
             with col2:
-                st.metric("Total Sorties", f"{total_sorties:,.2f} €")
+                st.metric("Total Sorties", f"${total_sorties:,.2f}")
             with col3:
-                st.metric("Solde", f"{solde_filtre:,.2f} €", delta=f"{solde_filtre:+,.2f} €")
+                st.metric("Solde", f"${solde_filtre:,.2f}", delta=f"${solde_filtre:+,.2f}")
             
             # Préparer l'affichage
             display_df = filtered_df.copy()
             display_df['date'] = display_df['date'].dt.strftime('%d/%m/%Y')
             display_df['montant_formatted'] = display_df.apply(
-                lambda row: f"{'+'if row['type']=='Entrée' else '-'}{row['montant']:,.2f} €", 
+                lambda row: f"{'+'if row['type']=='Entrée' else '-'}${row['montant']:,.2f}", 
                 axis=1
             )
             
