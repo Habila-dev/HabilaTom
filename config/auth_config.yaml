@@ -1,0 +1,8 @@
+cookie:
+  expiry_days: 30
+  key: habila_ghost_secret_key_2025
+  name: habila_ghost_auth
+credentials:
+  usernames: {}
+preauthorized:
+  emails: []
