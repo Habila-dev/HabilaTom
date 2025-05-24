@@ -33,9 +33,10 @@ Application web sécurisée de gestion financière développée avec Streamlit p
 ```bash
 # Cloner le repository
 git clone [votre-repo]
+cd habila-ghost-finance
 
 # Installer les dépendances
-pip install streamlit pandas plotly openpyxl streamlit-authenticator
+pip install -r requirements.txt
 
 # Lancer l'application
 streamlit run app.py
