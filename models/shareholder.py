@@ -8,10 +8,20 @@ class Shareholder:
     id: str
     nom: str
     prenom: str
-    pourcentage_actions: float
+    parts_sociales: int  # Nombre de parts sur 100 total
     email: Optional[str] = None
     telephone: Optional[str] = None
     actif: bool = True
+    
+    @property
+    def pourcentage_actions(self) -> float:
+        """Calcule le pourcentage basé sur les parts sociales"""
+        return self.parts_sociales
+    
+    @property
+    def valeur_parts(self) -> float:
+        """Calcule la valeur en dollars des parts détenues"""
+        return (self.parts_sociales / 100) * 150000
     
     def to_dict(self) -> dict:
         """Convertit l'actionnaire en dictionnaire"""

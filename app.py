@@ -10,7 +10,7 @@ from models.shareholder import Shareholder
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Habila Ghost - Gestion Financière",
+    page_title="Habila Ghosts - Gestion Financière",
     page_icon="💰",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -22,8 +22,17 @@ if 'data_manager' not in st.session_state:
 
 data_manager = st.session_state.data_manager
 
-# Titre principal
-st.title("💰 Habila Ghost - Gestion Financière")
+# En-tête avec logo
+col1, col2 = st.columns([1, 4])
+with col1:
+    try:
+        st.image("assets/logo.png", width=150)
+    except:
+        st.write("🚀")
+with col2:
+    st.title("Habila Ghosts - Gestion Financière")
+    st.caption("Capital: 150 000 $ divisé en 100 parts sociales")
+
 st.markdown("---")
 
 # Sidebar pour navigation
@@ -65,19 +74,19 @@ if not employees_df.empty:
             monthly_salary_due += remaining
 
 with col1:
-    st.metric("💵 Total Entrées", f"{total_income:,.2f} €", delta=None)
+    st.metric("💵 Total Entrées", f"${total_income:,.2f}", delta=None)
 
 with col2:
-    st.metric("💸 Total Sorties", f"{total_expenses:,.2f} €", delta=None)
+    st.metric("💸 Total Sorties", f"${total_expenses:,.2f}", delta=None)
 
 with col3:
-    st.metric("💰 Solde Actuel", f"{current_balance:,.2f} €", 
-              delta=f"{current_balance:+,.2f} €" if current_balance != 0 else None,
+    st.metric("💰 Solde Actuel", f"${current_balance:,.2f}", 
+              delta=f"${current_balance:+,.2f}" if current_balance != 0 else None,
               delta_color="normal" if current_balance >= 0 else "inverse")
 
 with col4:
-    st.metric("⏰ Salaires Dus ce Mois", f"{monthly_salary_due:,.2f} €",
-              delta=None if monthly_salary_due == 0 else f"-{monthly_salary_due:,.2f} €",
+    st.metric("⏰ Salaires Dus ce Mois", f"${monthly_salary_due:,.2f}",
+              delta=None if monthly_salary_due == 0 else f"-${monthly_salary_due:,.2f}",
               delta_color="inverse" if monthly_salary_due > 0 else "normal")
 
 st.markdown("---")
@@ -103,7 +112,7 @@ if not transactions_df.empty:
         
         fig = px.line(transactions_sorted, x='date', y='solde_cumulé',
                      title='Évolution du Solde dans le Temps')
-        fig.update_layout(xaxis_title="Date", yaxis_title="Solde (€)")
+        fig.update_layout(xaxis_title="Date", yaxis_title="Solde ($)")
         st.plotly_chart(fig, use_container_width=True)
     
     with col2:
@@ -125,7 +134,7 @@ if not transactions_df.empty:
     # Formater l'affichage
     display_df = recent_transactions.copy()
     display_df['date'] = pd.to_datetime(display_df['date']).dt.strftime('%d/%m/%Y')
-    display_df['montant'] = display_df['montant'].apply(lambda x: f"{x:,.2f} €")
+    display_df['montant'] = display_df['montant'].apply(lambda x: f"${x:,.2f}")
     
     st.dataframe(
         display_df[['date', 'type', 'description', 'montant']],
@@ -167,16 +176,16 @@ alerts = []
 
 # Vérifier les salaires dus
 if monthly_salary_due > 0:
-    alerts.append(f"💼 Salaires à payer ce mois : {monthly_salary_due:,.2f} €")
+    alerts.append(f"💼 Salaires à payer ce mois : ${monthly_salary_due:,.2f}")
 
 # Vérifier le solde négatif
 if current_balance < 0:
-    alerts.append(f"⚠️ Solde négatif : {current_balance:,.2f} €")
+    alerts.append(f"⚠️ Solde négatif : ${current_balance:,.2f}")
 
 # Vérifier les bénéfices à distribuer
 net_profit = current_balance - monthly_salary_due
 if net_profit > 1000 and not shareholders_df.empty:
-    alerts.append(f"💰 Bénéfices disponibles pour distribution : {net_profit:,.2f} €")
+    alerts.append(f"💰 Bénéfices disponibles pour distribution : ${net_profit:,.2f}")
 
 if alerts:
     for alert in alerts:
