@@ -13,37 +13,99 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Simple mot de passe admin
-admin_password = "habila2025"
+# Système d'authentification multi-utilisateurs
+import json
+import os
+
+def load_users():
+    """Charger les utilisateurs depuis le fichier"""
+    users_file = "config/users.json"
+    if not os.path.exists("config"):
+        os.makedirs("config")
+    
+    if not os.path.exists(users_file):
+        # Créer le fichier avec l'admin par défaut
+        from datetime import datetime
+        default_users = {
+            "admin": {
+                "password": "habila2025",
+                "role": "Administrateur",
+                "created_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+                "last_login": None,
+                "active": True
+            }
+        }
+        try:
+            with open(users_file, 'w', encoding='utf-8') as f:
+                json.dump(default_users, f, indent=2, ensure_ascii=False)
+        except:
+            pass
+        return default_users
+    
+    try:
+        with open(users_file, 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except:
+        return {"admin": {"password": "habila2025", "role": "Administrateur", "active": True}}
+
+def update_last_login(username):
+    """Mettre à jour la dernière connexion"""
+    users_file = "config/users.json"
+    try:
+        users = load_users()
+        from datetime import datetime
+        users[username]['last_login'] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        with open(users_file, 'w', encoding='utf-8') as f:
+            json.dump(users, f, indent=2, ensure_ascii=False)
+    except:
+        pass
 
 # Vérifier si l'utilisateur est connecté
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
+    st.session_state.current_user = None
+    st.session_state.user_role = None
 
 if not st.session_state.authenticated:
     st.title("🔐 Connexion - Habila Ghost")
     st.markdown("---")
     
+    # Charger les utilisateurs
+    users = load_users()
+    
     with st.form("login_form"):
-        password = st.text_input("Mot de passe administrateur", type="password", placeholder="Entrez votre mot de passe")
+        username = st.text_input("Nom d'utilisateur", placeholder="Entrez votre nom d'utilisateur")
+        password = st.text_input("Mot de passe", type="password", placeholder="Entrez votre mot de passe")
         submit = st.form_submit_button("Se connecter")
         
         if submit:
-            if password == admin_password:
-                st.session_state.authenticated = True
-                st.success("✅ Connexion réussie!")
-                st.rerun()
+            if username in users and users[username].get('active', True):
+                if users[username]['password'] == password:
+                    st.session_state.authenticated = True
+                    st.session_state.current_user = username
+                    st.session_state.user_role = users[username].get('role', 'Utilisateur')
+                    update_last_login(username)
+                    st.success("✅ Connexion réussie!")
+                    st.rerun()
+                else:
+                    st.error("❌ Mot de passe incorrect")
             else:
-                st.error("❌ Mot de passe incorrect")
+                st.error("❌ Utilisateur inexistant ou compte désactivé")
     
-    st.info("**Mot de passe par défaut:** `habila2025`")
+    st.info("**Compte administrateur par défaut:**\n- Utilisateur: `admin`\n- Mot de passe: `habila2025`")
     st.stop()
 
 # Interface de déconnexion
 with st.sidebar:
-    st.success("✅ Connecté en tant qu'Administrateur")
+    role_emoji = {"Administrateur": "👑", "Gestionnaire": "👤", "Consultant": "👁️", "Utilisateur": "👤"}
+    current_emoji = role_emoji.get(st.session_state.user_role, "👤")
+    st.success(f"✅ Connecté: {st.session_state.current_user}")
+    st.caption(f"{current_emoji} {st.session_state.user_role}")
+    
     if st.button("🚪 Déconnexion"):
         st.session_state.authenticated = False
+        st.session_state.current_user = None
+        st.session_state.user_role = None
         st.rerun()
 
 # Initialisation du gestionnaire de données
