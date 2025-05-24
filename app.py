@@ -40,7 +40,7 @@ auth_manager = st.session_state.auth_manager
 authenticator = auth_manager.get_authenticator()
 
 # Interface de connexion
-name, authentication_status, username = authenticator.login('Connexion à Habila Ghost', 'main')
+name, authentication_status, username = authenticator.login(location='main')
 
 if authentication_status == False:
     st.error('❌ Nom d\'utilisateur ou mot de passe incorrect')

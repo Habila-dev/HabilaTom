@@ -78,7 +78,7 @@ class AuthManager:
                     VALUES (%(id)s, %(username)s, %(name)s, %(email)s, %(password_hash)s, %(role)s, %(active)s)
                     """
                     
-                    conn.execute(self.db_manager.text(insert_admin), {
+                    conn.execute(text(insert_admin), {
                         'id': self.db_manager.generate_id(),
                         'username': 'admin',
                         'name': 'Administrateur Habila Ghost',
@@ -185,7 +185,7 @@ class AuthManager:
                 VALUES (%(id)s, %(username)s, %(name)s, %(email)s, %(password_hash)s, %(role)s, %(active)s, %(created_by)s)
                 """
                 
-                conn.execute(self.db_manager.text(insert_query), {
+                conn.execute(text(insert_query), {
                     'id': self.db_manager.generate_id(),
                     'username': username,
                     'name': name,
@@ -226,7 +226,7 @@ class AuthManager:
                 
                 if updates:
                     query = f"UPDATE users SET {', '.join(updates)} WHERE username = %(username)s"
-                    result = conn.execute(self.db_manager.text(query), params)
+                    result = conn.execute(text(query), params)
                     conn.commit()
                     return result.rowcount > 0
                 
