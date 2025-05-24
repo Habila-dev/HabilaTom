@@ -48,27 +48,35 @@ with tab1:
             telephone = st.text_input("Téléphone (optionnel)", placeholder="+33 1 23 45 67 89")
             
             if st.form_submit_button("💾 Ajouter l'actionnaire", use_container_width=True):
-                if prenom.strip() and nom.strip() and pourcentage > 0:
-                    # Vérifier que le total des pourcentages ne dépasse pas 100%
+                if prenom.strip() and nom.strip() and parts_sociales > 0:
+                    # Vérifier que le total des parts ne dépasse pas 100
                     shareholders_df = data_manager.load_shareholders()
                     if not shareholders_df.empty:
-                        current_total = shareholders_df[shareholders_df['actif'] == True]['pourcentage_actions'].sum()
-                        if current_total + pourcentage > 100:
-                            st.error(f"❌ Le total des actions ne peut pas dépasser 100%. Actuellement: {current_total:.2f}%")
+                        # Gestion de la rétrocompatibilité
+                        current_total = 0
+                        for _, row in shareholders_df[shareholders_df['actif'] == True].iterrows():
+                            if 'parts_sociales' in row and pd.notna(row['parts_sociales']):
+                                current_total += int(row['parts_sociales'])
+                            elif 'pourcentage_actions' in row and pd.notna(row['pourcentage_actions']):
+                                current_total += int(row['pourcentage_actions'])
+                        
+                        if current_total + parts_sociales > 100:
+                            st.error(f"❌ Le total des parts ne peut pas dépasser 100. Actuellement: {current_total} parts")
                         else:
                             try:
                                 shareholder = Shareholder(
                                     id=str(uuid.uuid4()),
                                     nom=nom.strip(),
                                     prenom=prenom.strip(),
-                                    pourcentage_actions=pourcentage,
+                                    parts_sociales=parts_sociales,
                                     email=email.strip() if email.strip() else None,
                                     telephone=telephone.strip() if telephone.strip() else None,
                                     actif=True
                                 )
                                 
                                 if data_manager.save_shareholder(shareholder):
-                                    st.success(f"✅ Actionnaire {prenom} {nom} ajouté avec succès!")
+                                    valeur = shareholder.valeur_parts
+                                    st.success(f"✅ Actionnaire {prenom} {nom} ajouté avec succès! Valeur: ${valeur:,.2f}")
                                     st.rerun()
                                 else:
                                     st.error("❌ Erreur lors de l'ajout de l'actionnaire.")
@@ -82,14 +90,15 @@ with tab1:
                                 id=str(uuid.uuid4()),
                                 nom=nom.strip(),
                                 prenom=prenom.strip(),
-                                pourcentage_actions=pourcentage,
+                                parts_sociales=parts_sociales,
                                 email=email.strip() if email.strip() else None,
                                 telephone=telephone.strip() if telephone.strip() else None,
                                 actif=True
                             )
                             
                             if data_manager.save_shareholder(shareholder):
-                                st.success(f"✅ Actionnaire {prenom} {nom} ajouté avec succès!")
+                                valeur = shareholder.valeur_parts
+                                st.success(f"✅ Actionnaire {prenom} {nom} ajouté avec succès! Valeur: ${valeur:,.2f}")
                                 st.rerun()
                             else:
                                 st.error("❌ Erreur lors de l'ajout de l'actionnaire.")
