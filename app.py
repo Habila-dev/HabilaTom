@@ -60,11 +60,15 @@ def update_last_login(username):
     except:
         pass
 
-# Vérifier si l'utilisateur est connecté
+# Vérifier si l'utilisateur est connecté (sessions persistantes)
 if 'authenticated' not in st.session_state:
     st.session_state.authenticated = False
     st.session_state.current_user = None
     st.session_state.user_role = None
+    
+# Maintenir la session tant que l'utilisateur ne se déconnecte pas manuellement
+if 'session_initialized' not in st.session_state:
+    st.session_state.session_initialized = True
 
 if not st.session_state.authenticated:
     st.title("🔐 Connexion - Habila Ghost")

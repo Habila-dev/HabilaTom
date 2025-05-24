@@ -13,6 +13,17 @@ st.set_page_config(
     layout="wide"
 )
 
+# Vérifier l'authentification
+if 'authenticated' not in st.session_state or not st.session_state.authenticated:
+    st.error("❌ Accès non autorisé. Veuillez vous connecter d'abord.")
+    st.stop()
+
+# Vérifier si l'utilisateur est administrateur
+if st.session_state.get('user_role') != 'Administrateur':
+    st.error("❌ Accès restreint aux administrateurs uniquement.")
+    st.info("Cette section contient des informations sensibles sur la répartition du capital et les actionnaires de l'entreprise.")
+    st.stop()
+
 # Initialisation du gestionnaire de données
 if 'data_manager' not in st.session_state:
     from utils.data_manager import DataManager

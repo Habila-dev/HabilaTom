@@ -15,6 +15,12 @@ if 'authenticated' not in st.session_state or not st.session_state.authenticated
     st.error("❌ Accès non autorisé. Veuillez vous connecter d'abord.")
     st.stop()
 
+# Vérifier si l'utilisateur est administrateur
+if st.session_state.get('user_role') != 'Administrateur':
+    st.error("❌ Accès restreint aux administrateurs uniquement.")
+    st.info("Cette section permet de gérer les comptes utilisateurs et les paramètres de sécurité.")
+    st.stop()
+
 st.title("🔐 Administration des Accès")
 st.markdown("---")
 
