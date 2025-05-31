@@ -12,13 +12,8 @@ st.set_page_config(
 
 # Initialisation du gestionnaire de données
 if 'data_manager' not in st.session_state:
-    try:
-        from utils.database_manager import DatabaseManager
-        st.session_state.data_manager = DatabaseManager()
-    except Exception as e:
-        st.error(f"❌ Erreur de connexion à la base de données: {str(e)}")
-        from utils.data_manager import DataManager
-        st.session_state.data_manager = DataManager()
+    from utils.data_manager import DataManager
+    st.session_state.data_manager = DataManager()
 
 data_manager = st.session_state.data_manager
 
