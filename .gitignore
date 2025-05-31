@@ -19,6 +19,7 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+MANIFEST
 
 # Virtual environments
 .env
@@ -34,23 +35,28 @@ venv.bak/
 .idea/
 *.swp
 *.swo
+*~
 
 # OS
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
-# Streamlit
-.streamlit/secrets.toml
-
-# Application specific
-data/*.csv
-config/users.json
+# Logs
 *.log
 
-# Backup files
-*_backup.py
-*_complex.py
+# Gradio
+gradio_cached_examples/
+flagged/
 
-# Package files
-uv.lock
-pyproject.toml
+# Local data (keep structure but ignore sensitive data)
+config/users.json
+*.tmp
+*.bak
+
+# Deployment
+.vercel

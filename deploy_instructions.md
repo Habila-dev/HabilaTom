@@ -1,12 +1,19 @@
 # 🚀 Instructions de Déploiement - Habila Ghost
 
-## 📋 Structure de l'Application Optimisée
+> ⚠️ **NOTICE: Cette application a été convertie vers Gradio**
+> 
+> Pour les instructions de déploiement actualisées, consultez:
+> - **Guide principal:** `DEPLOYMENT_GUIDE.md`
+> - **Checklist:** `DEPLOYMENT_CHECKLIST.md`
+> - **Résumé:** `CONVERSION_SUMMARY.md`
 
-Votre application est maintenant prête pour le déploiement gratuit avec :
-- ✅ Python 3.13
-- ✅ Dépendances minimales (requirements.txt)
-- ✅ Configuration Streamlit optimisée
-- ✅ Fichiers de déploiement complets
+## 📱 Application Gradio Mobile-Ready
+
+L'application est maintenant optimisée pour:
+- ✅ Déploiement HuggingFace Spaces
+- ✅ Interface mobile responsive  
+- ✅ Installation PWA sur Android
+- ✅ Performance améliorée
 
 ## 🗂️ Fichiers Essentiels
 

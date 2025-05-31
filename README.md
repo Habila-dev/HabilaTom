@@ -1,106 +1,71 @@
-# 👻 Habila Ghost - Système de Gestion Financière
+---
+title: Habila Ghosts - Gestion Financière
+emoji: 👻
+colorFrom: blue
+colorTo: purple
+sdk: gradio
+sdk_version: 4.44.0
+app_file: app.py
+pinned: false
+license: mit
+---
 
-Application web sécurisée de gestion financière développée avec Streamlit pour le suivi complet des transactions, salaires et partage des bénéfices.
+# 👻 Habila Ghosts - Système de Gestion Financière
+
+Application de gestion financière complète pour Habila Ghosts, développée avec Gradio pour une expérience mobile optimisée.
 
 ## 🚀 Fonctionnalités
 
-- **Tableau de Bord** : Vue d'ensemble des finances avec graphiques interactifs
-- **Gestion des Transactions** : Suivi des entrées et sorties de fonds
-- **Gestion des Salaires** : Calcul et suivi des paiements des employés
-- **Gestion des Actionnaires** : Répartition du capital (150 000 $ / 100 parts)
-- **Rapports** : Export Excel des données financières
-- **Administration** : Gestion sécurisée des utilisateurs
+- **💳 Gestion des Transactions**: Suivi complet des entrées et sorties financières
+- **👥 Gestion des Salaires**: Administration des employés et paiements
+- **🏛️ Gestion des Actionnaires**: Suivi des parts sociales et distributions
+- **📊 Rapports et Analyses**: Visualisations interactives avec Plotly
+- **🔐 Authentification Sécurisée**: Système multi-utilisateurs avec rôles
+- **📱 Interface Mobile**: Optimisée pour smartphones et tablettes
 
-## 🔐 Système d'Authentification
+## 🔑 Connexion
 
-- Connexion multi-utilisateurs avec rôles différenciés
-- Sessions persistantes
-- Accès restreint aux sections sensibles (Administrateurs uniquement)
+**Compte administrateur par défaut:**
+- Utilisateur: `admin`
+- Mot de passe: `habila2025`
 
-### Compte par défaut
-- **Utilisateur** : `admin`
-- **Mot de passe** : `habila2025`
+## 💼 Informations Entreprise
 
-## 📊 Architecture
+- **Capital Total**: 150 000 $
+- **Parts Sociales**: 100 parts
+- **Devise**: Dollar américain ($)
 
-- **Frontend** : Streamlit
-- **Stockage** : Fichiers JSON/CSV locaux
-- **Visualisation** : Plotly
-- **Export** : OpenPyXL
+## 🛠️ Technologies
 
-## 🔧 Installation Locale
+- **Framework**: Gradio 4.x
+- **Visualisations**: Plotly
+- **Données**: Pandas + CSV
+- **Déploiement**: HuggingFace Spaces
 
-```bash
-# Cloner le repository
-git clone [votre-repo]
-cd habila-ghost-finance
+## 📊 Tableau de Bord
 
-# Installer les dépendances
-pip install -r requirements.txt
+L'application offre un tableau de bord complet avec:
+- Métriques financières en temps réel
+- Graphiques d'évolution du solde
+- Répartition des flux financiers
+- Distribution du capital entre actionnaires
+- Historique des transactions récentes
 
-# Lancer l'application
-streamlit run app.py
-```
+## 🔒 Sécurité
 
-## ☁️ Déploiement
+- Authentification basée sur sessions
+- Gestion des rôles utilisateurs
+- Stockage sécurisé des données
+- Validation des entrées
 
-Cette application est optimisée pour le déploiement gratuit sur :
-- **Streamlit Cloud** (recommandé)
-- **Heroku**
-- **Railway**
-- **Render**
+## 📱 Compatibilité Mobile
 
-### Déploiement sur Streamlit Cloud
-
-1. Fork ce repository sur GitHub
-2. Connectez-vous sur [share.streamlit.io](https://share.streamlit.io)
-3. Déployez directement depuis votre repository
-
-## 📁 Structure du Projet
-
-```
-├── app.py                 # Application principale
-├── pages/                 # Pages Streamlit
-│   ├── 1_Transactions.py
-│   ├── 2_Salaires.py
-│   ├── 3_Actionnaires.py
-│   ├── 4_Rapports.py
-│   └── 5_Administration.py
-├── models/                # Modèles de données
-├── utils/                 # Utilitaires
-├── data/                  # Stockage des données
-├── config/                # Configuration utilisateurs
-└── .streamlit/           # Configuration Streamlit
-```
-
-## 💰 Système Financier
-
-- **Capital Total** : 150 000 $
-- **Parts Sociales** : 100 parts
-- **Devise** : Dollar américain ($)
-- **Calcul automatique** des pourcentages de répartition
-
-## 🛡️ Sécurité
-
-- Authentification obligatoire
-- Contrôle d'accès par rôles
-- Sessions sécurisées
-- Données chiffrées localement
-
-## 📈 Rapports
-
-- Export Excel mensuel
-- Graphiques interactifs
-- Calculs automatiques de bénéfices
-- Suivi des KPI financiers
-
-## 🎨 Interface
-
-- Design moderne et responsive
-- Logo Habila Ghost intégré
-- Navigation intuitive
-- Visualisations interactives avec Plotly
+Interface entièrement responsive et optimisée pour:
+- Smartphones Android/iOS
+- Tablettes
+- Navigateurs mobiles
+- Applications PWA
 
 ---
 
-**Développé pour Habila Ghost** - Système de gestion financière sécurisé et efficace
+*Développé pour Habila Ghosts - Gestion financière moderne et accessible*
