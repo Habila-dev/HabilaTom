@@ -1,1 +1,4 @@
 id,nom,prenom,poste,salaire_mensuel,date_embauche,actif
+550e8400-e29b-41d4-a716-446655440010,Habila,Tom,CEO & Développeur Principal,5000.00,2024-10-01,True
+550e8400-e29b-41d4-a716-446655440011,Martin,Sophie,Designer UX/UI,3500.00,2024-10-16,True
+550e8400-e29b-41d4-a716-446655440012,Dubois,Alexandre,Développeur Backend,4000.00,2024-11-01,True
