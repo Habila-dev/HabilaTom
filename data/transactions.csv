@@ -1,1 +1,7 @@
 id,date,type,montant,description,categorie
+550e8400-e29b-41d4-a716-446655440001,2024-11-01,Entrée,50000.00,Investissement initial - Capital de démarrage,Investissement
+550e8400-e29b-41d4-a716-446655440002,2024-11-06,Entrée,25000.00,Revenus de services - Contrat client A,Revenus
+550e8400-e29b-41d4-a716-446655440003,2024-11-11,Sortie,8000.00,Salaires équipe - Mois 1,Salaires
+550e8400-e29b-41d4-a716-446655440004,2024-11-16,Sortie,2500.00,Frais de bureau et équipement,Opérationnel
+550e8400-e29b-41d4-a716-446655440005,2024-11-21,Entrée,15000.00,Revenus de services - Contrat client B,Revenus
+550e8400-e29b-41d4-a716-446655440006,2024-11-26,Sortie,1200.00,Marketing et publicité,Marketing

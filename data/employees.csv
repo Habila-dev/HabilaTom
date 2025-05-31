@@ -1,1 +1,4 @@
 id,nom,prenom,poste,salaire_mensuel,date_embauche,actif
+550e8400-e29b-41d4-a716-446655440010,Habila,Tom,Directeur Général,4000.00,2024-11-01,True
+550e8400-e29b-41d4-a716-446655440011,Dupont,Marie,Développeuse Senior,3500.00,2024-11-06,True
+550e8400-e29b-41d4-a716-446655440012,Martin,Pierre,Designer UX/UI,3000.00,2024-11-11,True

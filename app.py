@@ -4,6 +4,7 @@ from datetime import datetime, date
 import plotly.express as px
 import plotly.graph_objects as go
 from utils.data_manager import DataManager
+from utils.demo_data import create_demo_data, should_create_demo_data
 
 # Configuration de la page
 st.set_page_config(
@@ -17,18 +18,28 @@ st.set_page_config(
 import json
 import os
 
+def get_admin_password():
+    """Récupère le mot de passe admin depuis les secrets Streamlit ou utilise la valeur par défaut"""
+    try:
+        return st.secrets["auth"]["default_admin_password"]
+    except:
+        return "habila2025"
+
 def load_users():
     """Charger les utilisateurs depuis le fichier"""
     users_file = "config/users.json"
     if not os.path.exists("config"):
         os.makedirs("config")
     
+    # Récupérer le mot de passe admin depuis les secrets
+    admin_password = get_admin_password()
+    
     if not os.path.exists(users_file):
         # Créer le fichier avec l'admin par défaut
         from datetime import datetime
         default_users = {
             "admin": {
-                "password": "habila2025",
+                "password": admin_password,
                 "role": "Administrateur",
                 "created_date": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "last_login": None,
@@ -44,9 +55,13 @@ def load_users():
     
     try:
         with open(users_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
+            users = json.load(f)
+            # Mettre à jour le mot de passe admin si nécessaire
+            if "admin" in users:
+                users["admin"]["password"] = admin_password
+            return users
     except:
-        return {"admin": {"password": "habila2025", "role": "Administrateur", "active": True}}
+        return {"admin": {"password": admin_password, "role": "Administrateur", "active": True}}
 
 def update_last_login(username):
     """Mettre à jour la dernière connexion"""
@@ -96,7 +111,8 @@ if not st.session_state.authenticated:
             else:
                 st.error("❌ Utilisateur inexistant ou compte désactivé")
     
-    st.info("**Compte administrateur par défaut:**\n- Utilisateur: `admin`\n- Mot de passe: `habila2025`")
+    admin_password = get_admin_password()
+    st.info(f"**Compte administrateur par défaut:**\n- Utilisateur: `admin`\n- Mot de passe: `{admin_password}`")
     st.stop()
 
 # Interface de déconnexion
@@ -111,6 +127,14 @@ with st.sidebar:
         st.session_state.current_user = None
         st.session_state.user_role = None
         st.rerun()
+
+# Initialisation des données de démonstration pour le déploiement cloud
+if should_create_demo_data():
+    try:
+        if create_demo_data():
+            st.success("✅ Données de démonstration créées avec succès!")
+    except Exception as e:
+        st.warning(f"⚠️ Impossible de créer les données de démonstration: {e}")
 
 # Initialisation du gestionnaire de données (version déployable)
 if 'data_manager' not in st.session_state:
