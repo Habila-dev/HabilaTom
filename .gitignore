@@ -43,8 +43,14 @@ Thumbs.db
 .streamlit/secrets.toml
 
 # Application specific
-data/*.csv
-config/users.json
+# Allow initial data files for deployment
+!data/transactions.csv
+!data/employees.csv
+!data/shareholders.csv
+!config/users.json
+# Ignore populated data files
+data/*_backup.csv
+data/*_export.csv
 *.log
 
 # Backup files

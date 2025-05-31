@@ -123,7 +123,7 @@ data_manager = st.session_state.data_manager
 col1, col2 = st.columns([1, 4])
 with col1:
     try:
-        st.image("attached_assets/habila_ghosts_logo_final.png", width=150)
+        st.image("assets/logo.png", width=150)
     except:
         st.write("👻 **HABILA GHOSTS**")
 
