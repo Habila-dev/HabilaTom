@@ -3,8 +3,8 @@
 ## 📋 Structure de l'Application Optimisée
 
 Votre application est maintenant prête pour le déploiement gratuit avec :
-- ✅ Python 3.13
-- ✅ Dépendances minimales (requirements.txt)
+- ✅ Python 3.11.9 (stable et compatible)
+- ✅ Dépendances optimisées (requirements.txt)
 - ✅ Configuration Streamlit optimisée
 - ✅ Fichiers de déploiement complets
 
@@ -13,7 +13,7 @@ Votre application est maintenant prête pour le déploiement gratuit avec :
 ```
 habila-ghost-finance/
 ├── app.py                    # Application principale
-├── requirements.txt          # Dépendances Python 3.13
+├── requirements.txt          # Dépendances Python optimisées
 ├── runtime.txt              # Version Python
 ├── Procfile                 # Configuration Heroku
 ├── README.md                # Documentation

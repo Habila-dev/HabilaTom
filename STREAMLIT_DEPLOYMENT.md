@@ -130,11 +130,15 @@ L'application crée automatiquement des données de démonstration au premier d�
 
 ### Problèmes Courants
 
-#### 1. Erreur de Démarrage
+#### 1. Erreur de Démarrage / Dépendances
 ```
 ModuleNotFoundError: No module named 'xxx'
+ERROR: Could not install packages due to an EnvironmentError
 ```
-**Solution** : Vérifiez `requirements.txt` et ajoutez les dépendances manquantes
+**Solutions** : 
+- Vérifiez que `runtime.txt` utilise `python-3.11.9` (version stable)
+- Utilisez des plages de versions dans `requirements.txt` au lieu de versions fixes
+- Consultez `DEPLOYMENT_TROUBLESHOOTING.md` pour un guide détaillé
 
 #### 2. Erreur d'Authentification
 ```
