@@ -42,10 +42,13 @@ Thumbs.db
 # Streamlit
 .streamlit/secrets.toml
 
-# Application specific
-data/*.csv
+# Application specific - Keep demo data for cloud deployment
+# data/*.csv (commented out to allow demo data in repo)
 config/users.json
 *.log
+
+# Local development only
+.streamlit/secrets_local.toml
 
 # Backup files
 *_backup.py

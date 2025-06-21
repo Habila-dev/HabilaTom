@@ -3,8 +3,8 @@
 ## 📋 Structure de l'Application Optimisée
 
 Votre application est maintenant prête pour le déploiement gratuit avec :
-- ✅ Python 3.13
-- ✅ Dépendances minimales (requirements.txt)
+- ✅ Python 3.11.9 (stable et compatible)
+- ✅ Dépendances optimisées (requirements.txt)
 - ✅ Configuration Streamlit optimisée
 - ✅ Fichiers de déploiement complets
 
@@ -13,7 +13,7 @@ Votre application est maintenant prête pour le déploiement gratuit avec :
 ```
 habila-ghost-finance/
 ├── app.py                    # Application principale
-├── requirements.txt          # Dépendances Python 3.13
+├── requirements.txt          # Dépendances Python optimisées
 ├── runtime.txt              # Version Python
 ├── Procfile                 # Configuration Heroku
 ├── README.md                # Documentation
@@ -56,11 +56,15 @@ habila-ghost-finance/
 2. Uploader tous les fichiers
 3. Aller sur share.streamlit.io
 4. Connecter GitHub et sélectionner le repo
-5. Déployer automatiquement !
+5. **Configurer les secrets** (voir STREAMLIT_DEPLOYMENT.md)
+6. Déployer automatiquement !
 
 ### Identifiants par défaut :
 - **Utilisateur** : `admin`
-- **Mot de passe** : `habila2025`
+- **Mot de passe** : Configuré dans les secrets Streamlit (par défaut : `habila2025`)
+
+### 📖 Guide Détaillé
+Pour un guide complet de déploiement Streamlit Cloud, consultez : **[STREAMLIT_DEPLOYMENT.md](./STREAMLIT_DEPLOYMENT.md)**
 
 ## 🔧 Personnalisation Post-Déploiement
 

@@ -19,7 +19,7 @@ Application web sécurisée de gestion financière développée avec Streamlit p
 
 ### Compte par défaut
 - **Utilisateur** : `admin`
-- **Mot de passe** : `habila2025`
+- **Mot de passe** : Configuré via secrets Streamlit (par défaut : `habila2025`)
 
 ## 📊 Architecture
 
@@ -54,7 +54,10 @@ Cette application est optimisée pour le déploiement gratuit sur :
 
 1. Fork ce repository sur GitHub
 2. Connectez-vous sur [share.streamlit.io](https://share.streamlit.io)
-3. Déployez directement depuis votre repository
+3. Configurez les secrets (voir [STREAMLIT_DEPLOYMENT.md](./STREAMLIT_DEPLOYMENT.md))
+4. Déployez directement depuis votre repository
+
+📖 **Guide complet** : [STREAMLIT_DEPLOYMENT.md](./STREAMLIT_DEPLOYMENT.md)
 
 ## 📁 Structure du Projet
 
